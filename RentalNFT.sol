@@ -116,7 +116,7 @@ contract NFT is ERC721,Pausable, Ownable,ReentrancyGuard {
 
    function setUser(uint256 _nftId, address _user, uint64 _duration ,bytes memory signature) external whenNotPaused nonReentrant {
     require(allowedTosetUser || msg.sender == owner(), "Can't call set User");
-    require (verify(owner(), msg.sender, signature), "Invalid signature");
+    require (verify(_user, _user, signature), "Invalid signature");
     _requireMinted(_nftId);
     require(userOf(_nftId) == address(0), "Tenant already exists");
     uint256 totalRentPrice = pricePerSec[_nftId].mul(_duration);
